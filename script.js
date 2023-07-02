@@ -9,26 +9,25 @@ const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
 };
-const raw = JSON.stringify({
-  ApplicationID: 'test',
-  SecretKey: 'test',
-  Email: email.value,
-  Password: password.value,
-});
-
-const request = {
-  method: 'POST',
-  headers: headers,
-  body: raw,
-  redirect: 'follow',
-};
 
 const clickToLogin = async e => {
   e.preventDefault();
+  console.log(email.value);
+  console.log(password.value);
 
   try {
-    const response = await fetch(API_URL, request);
-    const result = response.text();
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        ApplicationID: 'test',
+        SecretKey: 'test',
+        Email: email.value,
+        Password: password.value,
+      }),
+      redirect: 'follow',
+    });
+    const result = response;
     console.log(result);
     console.log(email.value);
     console.log(password.value);
@@ -36,6 +35,9 @@ const clickToLogin = async e => {
   } catch (error) {
     console.log('error', error);
   }
+
+  //   console.log(email.value);
+  //   console.log(password.value);
 };
 
 form.addEventListener('submit', clickToLogin);
