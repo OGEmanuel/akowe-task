@@ -36,7 +36,6 @@ const clickToLogin = async e => {
       redirect: 'follow',
     });
     const result = await response.text();
-    console.log(result);
     location.replace('./dashboard.html');
   } catch (error) {
     console.log('error', error);
