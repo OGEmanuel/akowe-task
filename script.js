@@ -4,7 +4,12 @@ const form = document.getElementById('form');
 const email = document.getElementById('email');
 const btn = document.getElementById('login');
 const password = document.getElementById('password');
+const incorrect = document.getElementById('incorrect');
 const API_URL = 'https://issuance.akowe.app/account/login';
+
+const userEmail = 'test%40akowe.app';
+const userPassword = 'Password_123';
+
 const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
@@ -12,8 +17,11 @@ const headers = {
 
 const clickToLogin = async e => {
   e.preventDefault();
-  console.log(email.value);
-  console.log(password.value);
+
+  if (email.value !== userEmail || password.value !== userPassword) {
+    incorrect.classList.remove('hidden');
+    return;
+  }
 
   try {
     const response = await fetch(API_URL, {
@@ -27,17 +35,12 @@ const clickToLogin = async e => {
       }),
       redirect: 'follow',
     });
-    const result = response;
+    const result = await response.text();
     console.log(result);
-    console.log(email.value);
-    console.log(password.value);
-    location.replace('./index.html');
+    location.replace('./dashboard.html');
   } catch (error) {
     console.log('error', error);
   }
-
-  //   console.log(email.value);
-  //   console.log(password.value);
 };
 
 form.addEventListener('submit', clickToLogin);
