@@ -17,9 +17,10 @@ const headers = {
 
 const clickToLogin = async e => {
   e.preventDefault();
-
+  btn.textContent = 'Logging in...';
   if (email.value !== userEmail || password.value !== userPassword) {
     incorrect.classList.remove('hidden');
+    btn.textContent = 'Login';
     return;
   }
 
@@ -38,6 +39,7 @@ const clickToLogin = async e => {
     const result = await response.text();
     location.replace('./dashboard.html');
   } catch (error) {
+    btn.textContent = 'Login';
     console.log('error', error);
   }
 };
